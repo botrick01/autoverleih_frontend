@@ -21,7 +21,9 @@ export default function Dashboard() {
       </div>
 
       <div className='bg-slate-200'>
-
+        <div>
+          
+        </div>
       </div>
     </div>
   )
