@@ -1,18 +1,67 @@
 import Inputfield from "@/components/inputfield";
 import Loginbutton from "@/components/loginbutton";
+import UserService from "@/services/user.service";
 import Image from "next/image";
+import { useState } from "react";
+import { useMutation } from "react-query";
 
 export default function Login() {
+  const [username, setUsername] = useState("");
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [confirmPassword, setConfirmPassword] = useState("");
+  const [admin, setAdmin] = useState(false);
+  const { mutate } = useMutation({
+    mutationKey: "register",
+    mutationFn: UserService.register,
+  });
+  const register = () => {
+    if(password !== confirmPassword){
+      mutate({username, email, password});
+    }
+  }
+
   return (
     <div className=" bg-slate-100 h-full py-20 px-60 bg-center">
       <div className="bg-white p-32 rounded-3xl">
         <h1 className="text-3xl pb-3">Register</h1>
         <hr />
-        <Inputfield name="User" />
-        <Inputfield name="E-Mail" />
-        <Inputfield name="Password" />
-        <Inputfield name="Confirm Password" />
-
+        <div className="pt-5 text-lg">
+          <div>Username</div>
+          <input
+            value={username}
+            onChange={(e) => setUsername(e.target.value)}
+            type="text"
+            className="p-1 bg-slate-100 rounded-xl hover:bg-slate-200"
+          />
+        </div>
+        <div className="pt-5 text-lg">
+          <div>E-Mail</div>
+          <input
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
+            type="text"
+            className="p-1 bg-slate-100 rounded-xl hover:bg-slate-200"
+          />
+        </div>
+        <div className="pt-5 text-lg">
+          <div>Password</div>
+          <input
+            value={password}
+            onChange={(e) => setPassword(e.target.value)}
+            type="text"
+            className="p-1 bg-slate-100 rounded-xl hover:bg-slate-200"
+          />
+        </div>
+        <div className="pt-5 text-lg">
+          <div>Confirm Password</div>
+          <input
+            value={confirmPassword}
+            onChange={(e) => setConfirmPassword(e.target.value)}
+            type="text"
+            className="p-1 bg-slate-100 rounded-xl hover:bg-slate-200"
+          />
+        </div>
         <div className="pt-5 text-lg">
           <div>Admin?</div>
           <input
@@ -22,8 +71,8 @@ export default function Login() {
         </div>
 
         <div className="flex flex-row">
-          <Loginbutton name="Login" />
-          <Loginbutton name="To Register" />
+          <Loginbutton name="To Login" />
+          <Loginbutton name="Register" onClick={register}/>
         </div>
       </div>
     </div>
