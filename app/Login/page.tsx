@@ -5,7 +5,7 @@ import Image from "next/image";
 export default function Login() {
   return (
     <div className=" bg-slate-100 h-full py-20 px-60 bg-center">
-      <div className="bg-white p-32 rounded-xl">
+      <div className="bg-white p-32 rounded-3xl">
         <h1 className="text-3xl pb-3">Login</h1>
         <hr />
         <Inputfield name="User" />
