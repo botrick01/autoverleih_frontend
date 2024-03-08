@@ -1,8 +1,7 @@
 interface IUser {
   id: number;
-  username: string;
+  userName: string;
   email: string;
-  role: string;
 }
 
 export default IUser;

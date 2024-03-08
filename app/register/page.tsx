@@ -1,22 +1,22 @@
+"use client"
 import Inputfield from "@/components/inputfield";
 import Loginbutton from "@/components/loginbutton";
 import UserService from "@/services/user.service";
-import Image from "next/image";
 import { useState } from "react";
 import { useMutation } from "react-query";
 
-export default function Login() {
+export default function Register() {
   const [username, setUsername] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
-  const [admin, setAdmin] = useState(false);
+  
   const { mutate } = useMutation({
     mutationKey: "register",
     mutationFn: UserService.register,
   });
   const register = () => {
-    if(password !== confirmPassword){
+    if(password === confirmPassword){
       mutate({username, email, password});
     }
   }
@@ -78,3 +78,4 @@ export default function Login() {
     </div>
   );
 }
+

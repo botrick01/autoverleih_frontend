@@ -1,7 +1,25 @@
+"use client"
 import Inputfield from "@/components/inputfield";
+import Cars from "@/services/car.service";
+import UserService from "@/services/user.service";
 import Image from "next/image";
+import { useQuery } from "react-query";
 
 export default function Dashboard() {
+  const {
+    data: cars
+  } = useQuery({
+    queryKey: "cars",
+    queryFn: Cars.getCars,
+  });
+
+  const {
+    data: user
+  } = useQuery({
+    queryKey: "user",
+    queryFn: UserService.currentUser,
+  });
+
   return (
     <div className=" bg-slate-100 h-full py-20 px-40 bg-center">
       <div className="bg-white p-16 rounded-3xl">
@@ -13,8 +31,8 @@ export default function Dashboard() {
             <h2 className="text-xl"> Logindata: </h2>
             <br /> <hr className="bg-white" />
             <div className="p-2">
-              lfenkart <br />
-              lukasfenkart1011@gmail.com
+              {user?.userName} <br />
+              {user?.email}
             </div>
           </div>
         </div>
@@ -31,7 +49,9 @@ export default function Dashboard() {
 
             <div className="flex flex-row gap-5">
               <div className="flex flex-row p-1">
-                <div className="p-1 px-4 rounded-l-xl bg-white">Start Date: </div>
+                <div className="p-1 px-4 rounded-l-xl bg-white">
+                  Start Date:{" "}
+                </div>
                 <div>
                   <input
                     type="date"
@@ -54,11 +74,15 @@ export default function Dashboard() {
         </div>
 
         <div className="bg-slate-200 rounded-b-xl">
-          <div className="p-5">Test Auto 1</div>
-
-          <div className="p-5">Test Auto 2</div>
-
-          <div className="p-5">Test Auto 3</div>
+          {cars
+            ? cars.map((carName) => {
+                return (
+                  <div className="p-5" key={carName}>
+                    {carName}
+                  </div>
+                );
+              })
+            : null}
         </div>
       </div>
     </div>

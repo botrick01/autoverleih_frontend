@@ -1,9 +1,18 @@
 import IRegisterRequest from "@/models/registerRequest.interface";
 import axios, { AxiosError } from "axios";
+import http from "../http-common";
+import ILoginRequest from "@/models/loginRequest.interface";
+import IUser from "@/models/user.interface";
 
-const login = (username: string, password: string) => {
+const login = async (loginRequest: ILoginRequest) => {
     try {
-        let response = axios.post(`localhost:8080/login`, {username, password});
+        let response = await http.post(`/api/Auth/login`, loginRequest);
+        if (response.status === 200) {
+            let accessToken = response.data.token;
+            typeof window !== "undefined" ? window.localStorage.setItem('accessToken', accessToken) : null;
+        } else {
+            throw Error();
+        }
     } catch (e) {
         let error = e as AxiosError;
         throw new Error(error.message)
@@ -12,7 +21,18 @@ const login = (username: string, password: string) => {
 
 const register = async (registerRequest: IRegisterRequest) => {
     try {
-        let response = await axios.post(`localhost:8080/register`, registerRequest);
+        let response = await http.post(`/api/Auth/register`, registerRequest);
+        console.log(response);
+    } catch (e) {
+        let error = e as AxiosError;
+        throw new Error(error.message)
+    }
+}
+
+const currentUser = async (): Promise<IUser> => {
+    try {
+        let response = await http.get(`/api/User`);
+        return response.data;
     } catch (e) {
         let error = e as AxiosError;
         throw new Error(error.message)
@@ -21,7 +41,7 @@ const register = async (registerRequest: IRegisterRequest) => {
 
 const UserService = {
     login,
-    register
+    register, currentUser
 }
 
 export default UserService;

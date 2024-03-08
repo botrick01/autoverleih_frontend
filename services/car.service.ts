@@ -1,9 +1,10 @@
+import http from "@/http-common";
 import axios, { AxiosError } from "axios";
 
-const getCars = () => {
+const getCars = async (): Promise<string[]> => {
     try {
-        let response = axios.get(`localhost:8080/Cars`);
-        return response;
+        let response = await http.get(`/api/Car`);
+        return response.data;
     } catch (e) {
         let error = e as AxiosError;
         throw new Error(error.message);
