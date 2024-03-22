@@ -3,9 +3,12 @@ import Inputfield from "@/components/inputfield";
 import Loginbutton from "@/components/loginbutton";
 import UserService from "@/services/user.service";
 import { useState } from "react";
+import { useRouter } from "next/navigation";
 import { useMutation } from "react-query";
 
 export default function Register() {
+  const router = useRouter();
+
   const [username, setUsername] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -14,6 +17,9 @@ export default function Register() {
   const { mutate } = useMutation({
     mutationKey: "register",
     mutationFn: UserService.register,
+    onSuccess() {
+      router.push("/login");
+    }
   });
   const register = () => {
     if(password === confirmPassword){
@@ -62,16 +68,9 @@ export default function Register() {
             className="p-1 bg-slate-100 rounded-xl hover:bg-slate-200"
           />
         </div>
-        <div className="pt-5 text-lg">
-          <div>Admin?</div>
-          <input
-            type="checkbox"
-            className="p-1 bg-slate-100 rounded-xl hover:bg-slate-200"
-          />
-        </div>
 
         <div className="flex flex-row">
-          <Loginbutton name="To Login" />
+          <Loginbutton name="To Login" onClick={() => router.push("/login")}/>
           <Loginbutton name="Register" onClick={register}/>
         </div>
       </div>
