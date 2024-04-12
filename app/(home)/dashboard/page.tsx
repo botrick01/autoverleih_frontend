@@ -1,4 +1,4 @@
-"use client"
+"use client";
 import Inputfield from "@/components/inputfield";
 import Cars from "@/services/car.service";
 import UserService from "@/services/user.service";
@@ -6,16 +6,12 @@ import Image from "next/image";
 import { useQuery } from "react-query";
 
 export default function Dashboard() {
-  const {
-    data: cars
-  } = useQuery({
+  const { data: cars } = useQuery({
     queryKey: "cars",
     queryFn: Cars.getCars,
   });
 
-  const {
-    data: user
-  } = useQuery({
+  const { data: user } = useQuery({
     queryKey: "user",
     queryFn: UserService.currentUser,
   });
@@ -77,19 +73,11 @@ export default function Dashboard() {
           {cars
             ? cars.map((carName, index) => {
                 return (
-                  <div className="p-5 flex flex-col" key={index}>
-                    <div>
-                    Modell:{carName.model}
-                      </div>
-                      <div>
-                    Brand:{carName.carBrand}
-                      </div>
-                      <div>
-                    Trunkspace: {carName.trunkSpace}
-                      </div>
-                      <div>
-                    Seats: {carName.seats}
-                      </div>
+                  <div className="p-5 flex flex-row gap-10" key={index}>
+                    <p>Modell: {carName.model}</p>
+                    <p>Brand: {carName.carBrand}</p>
+                    <p>Trunkspace: {carName.trunkSpace}</p>
+                    <p>Seats: {carName.seats}</p>
                   </div>
                 );
               })
