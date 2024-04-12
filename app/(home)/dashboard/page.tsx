@@ -25,7 +25,7 @@ export default function Dashboard() {
       <div className="bg-white p-16 rounded-3xl">
         <div className="flex flex-row justify-between">
           <div>
-            <h1 className="text-3xl pb-3">CRD - Car Rent Dashboard</h1> <hr />
+            <h1 className="text-3xl pb-3">Dashboard</h1> <hr />
           </div>
           <div className="bg-slate-400 text-white p-3 rounded-xl">
             <h2 className="text-xl"> Logindata: </h2>

@@ -5,6 +5,7 @@ import UserService from "@/services/user.service";
 import { useState } from "react";
 import { useRouter } from "next/navigation";
 import { useMutation } from "react-query";
+import { toast } from "react-toastify";
 
 export default function Register() {
   const router = useRouter();
@@ -19,13 +20,20 @@ export default function Register() {
     mutationFn: UserService.register,
     onSuccess() {
       router.push("/login");
+    },
+    onError(error: any) {
+      toast.error(error.message);
     }
   });
   const register = () => {
     if(password === confirmPassword){
       mutate({username, email, password});
     }
+    else{
+      toast.error("Passwords do not match");
+    }
   }
+
 
   return (
     <div className=" bg-slate-100 h-full py-20 px-60 bg-center">
@@ -55,7 +63,7 @@ export default function Register() {
           <input
             value={password}
             onChange={(e) => setPassword(e.target.value)}
-            type="text"
+            type="password"
             className="p-1 bg-slate-100 rounded-xl hover:bg-slate-200"
           />
         </div>
@@ -64,7 +72,7 @@ export default function Register() {
           <input
             value={confirmPassword}
             onChange={(e) => setConfirmPassword(e.target.value)}
-            type="text"
+            type="password"
             className="p-1 bg-slate-100 rounded-xl hover:bg-slate-200"
           />
         </div>

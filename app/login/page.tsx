@@ -52,7 +52,7 @@ export default function Login() {
           <input
             value={password}
             onChange={(e) => setPassword(e.target.value)}
-            type="text"
+            type="password"
             className="p-1 bg-slate-100 rounded-xl hover:bg-slate-200"
           />
         </div>
