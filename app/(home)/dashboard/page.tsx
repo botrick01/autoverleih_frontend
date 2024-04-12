@@ -21,7 +21,7 @@ export default function Dashboard() {
   });
 
   return (
-    <div className=" bg-slate-100 h-screen py-20 px-40 bg-center">
+    <div className=" bg-slate-100 py-20 px-40 bg-center">
       <div className="bg-white p-16 rounded-3xl">
         <div className="flex flex-row justify-between">
           <div>

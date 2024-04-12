@@ -6,6 +6,7 @@ import { useState } from "react";
 import { useRouter } from "next/navigation";
 import { useMutation } from "react-query";
 import Cars from "@/services/car.service";
+import { toast } from "react-toastify";
 
 export default function Carcreate() {
   const router = useRouter();
@@ -14,15 +15,22 @@ export default function Carcreate() {
   const [model, setModel] = useState("");
   const [seats, setSeats] = useState(0);
   const [trunkspace, setTrunkspace] = useState(0);
-  const [type, setType] = useState("");
+  const [type, setType] = useState(0);
   
   const { mutate } = useMutation({
     mutationKey: "register",
     mutationFn: Cars.createCar,
-    onSuccess() {}
+    onSuccess() {
+      toast.success("Car created");
+    },
+    onError(error: any) {
+      toast.error(error.message);
+    }
   });
   const createcar = () => {
-      mutate({carBrand: carbrand, model: model, seats: seats, trunkSpace: trunkspace, type: 2});
+    if(carbrand === "" || model === ""){
+      mutate({carBrand: carbrand, model: model, seats: seats, trunkSpace: trunkspace, type: type});
+    }
   }
 
   return (
@@ -70,14 +78,14 @@ export default function Carcreate() {
           <div>Car Type</div>
           <input
             value={type}
-            onChange={(e) => setType(e.target.value)}
+            onChange={(e) => setType(parseInt(e.target.value))}
             type="number"
             className="p-1 bg-slate-100 rounded-xl hover:bg-slate-200"
           />
         </div>
 
         <div className="flex flex-row">
-          <Loginbutton name="Create Car" onClick={() => console.log("")}/>
+          <Loginbutton name="Create Car" onClick={createcar}/>
         </div>
       </div>
     </div>
