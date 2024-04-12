@@ -28,7 +28,7 @@ export default function Carcreate() {
     }
   });
   const createcar = () => {
-    if(carbrand === "" || model === ""){
+    if(carbrand !== "" || model !== ""){
       mutate({carBrand: carbrand, model: model, seats: seats, trunkSpace: trunkspace, type: type});
     }
   }
