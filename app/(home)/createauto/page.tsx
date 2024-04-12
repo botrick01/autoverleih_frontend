@@ -5,29 +5,26 @@ import UserService from "@/services/user.service";
 import { useState } from "react";
 import { useRouter } from "next/navigation";
 import { useMutation } from "react-query";
+import Cars from "@/services/car.service";
 
 export default function Carcreate() {
   const router = useRouter();
 
   const [carbrand, setCarbrand] = useState("");
   const [model, setModel] = useState("");
-  const [seats, setSeats] = useState("");
-  const [trunkspace, setTrunkspace] = useState("");
+  const [seats, setSeats] = useState(0);
+  const [trunkspace, setTrunkspace] = useState(0);
   const [type, setType] = useState("");
-  /*
+  
   const { mutate } = useMutation({
     mutationKey: "register",
-    mutationFn: UserService.register,
-    onSuccess() {
-      router.push("/login");
-    }
+    mutationFn: Cars.createCar,
+    onSuccess() {}
   });
   const createcar = () => {
-    if(password === confirmPassword){
-      mutate({username, email, password});
-    }
+      mutate({carBrand: carbrand, model: model, seats: seats, trunkSpace: trunkspace, type: 2});
   }
-*/
+
   return (
     <div className=" bg-slate-100 h-full py-20 px-60 bg-center">
       <div className="bg-white p-32 rounded-3xl">
@@ -55,7 +52,7 @@ export default function Carcreate() {
           <div>Seats</div>
           <input
             value={seats}
-            onChange={(e) => setSeats(e.target.value)}
+            onChange={(e) => setSeats(parseInt(e.target.value))}
             type="number"
             className="p-1 bg-slate-100 rounded-xl hover:bg-slate-200"
           />
@@ -64,7 +61,7 @@ export default function Carcreate() {
           <div>Trunkspace</div>
           <input
             value={trunkspace}
-            onChange={(e) => setTrunkspace(e.target.value)}
+            onChange={(e) => setTrunkspace(parseInt(e.target.value))}
             type="number"
             className="p-1 bg-slate-100 rounded-xl hover:bg-slate-200"
           />
