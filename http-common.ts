@@ -1,4 +1,6 @@
 import axios from "axios";
+import { useRouter } from "next/navigation";
+
 
 const http = axios.create({
     baseURL: "http://localhost:5137",
@@ -21,5 +23,18 @@ http.interceptors.request.use(
         return Promise.reject(error);
     }
 );
+
+http.interceptors.response.use(
+    (res) => {
+        return res;
+    },
+    async (err) => {
+        if (err.response.status == 401) {
+            window.location.href = window.location.origin + "/login";
+            return Promise.reject();
+        }
+        return err
+    }
+)
 
 export default http;

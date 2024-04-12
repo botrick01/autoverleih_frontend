@@ -75,10 +75,21 @@ export default function Dashboard() {
 
         <div className="bg-slate-200 rounded-b-xl">
           {cars
-            ? cars.map((carName) => {
+            ? cars.map((carName, index) => {
                 return (
-                  <div className="p-5" key={carName}>
-                    {carName}
+                  <div className="p-5 flex flex-col" key={index}>
+                    <div>
+                    Modell:{carName.model}
+                      </div>
+                      <div>
+                    Brand:{carName.carBrand}
+                      </div>
+                      <div>
+                    Trunkspace: {carName.trunkSpace}
+                      </div>
+                      <div>
+                    Seats: {carName.seats}
+                      </div>
                   </div>
                 );
               })
